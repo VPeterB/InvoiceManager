@@ -1,0 +1,58 @@
+<div>
+  <h2>Számla létrehozó oldal</h2>
+  <form (ngSubmit)="saveInvoice()" #invoiceForm="ngForm">
+    <div>
+      <label for="customerName">Ügyfél neve:</label>
+      <input type="text" id="customerName" name="customerName" [(ngModel)]="newInvoice.customerName" required>
+      <div *ngIf="invoiceForm.controls['customerName'].invalid && (invoiceForm.controls['customerName'].dirty || invoiceForm.controls['customerName'].touched)">
+        <div *ngIf="invoiceForm.controls['customerName'].errors?.['required']">Ügyfél neve kötelező!</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="issueDate">Kiadás dátuma:</label>
+      <input type="datetime-local" id="issueDate" name="issueDate" [(ngModel)]="newInvoice.issueDate" required>
+      <div *ngIf="invoiceForm.controls['issueDate'].invalid && (invoiceForm.controls['issueDate'].dirty || invoiceForm.controls['issueDate'].touched)">
+        <div *ngIf="invoiceForm.controls['issueDate'].errors?.['required']">>Kiadás dátuma kötelező!</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="dueDate">Esedékesség dátuma:</label>
+      <input type="datetime-local" id="dueDate" name="dueDate" [(ngModel)]="newInvoice.dueDate" required>
+      <div *ngIf="invoiceForm.controls['dueDate'].invalid && (invoiceForm.controls['dueDate'].dirty || invoiceForm.controls['dueDate'].touched)">
+        <div *ngIf="invoiceForm.controls['dueDate'].errors?.['required']">Esedékesség dátuma kötelező!</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="itemName">Tétel neve:</label>
+      <input type="text" id="itemName" name="itemName" [(ngModel)]="newInvoice.itemName" required>
+      <div *ngIf="invoiceForm.controls['itemName'].invalid && (invoiceForm.controls['itemName'].dirty || invoiceForm.controls['itemName'].touched)">
+        <div *ngIf="invoiceForm.controls['itemName'].errors?.['required']">Tétel neve kötelező!</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="comment">Megjegyzés:</label>
+      <textarea id="comment" name="comment" [(ngModel)]="newInvoice.comment" required></textarea>
+      <div *ngIf="invoiceForm.controls['comment'].invalid && (invoiceForm.controls['comment'].dirty || invoiceForm.controls['comment'].touched)">
+        <div *ngIf="invoiceForm.controls['comment'].errors?.['required']">Megjegyzés kötelező!</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="price">Ár:</label>
+      <input type="number" id="price" name="price" [(ngModel)]="newInvoice.price" required>
+      <div *ngIf="invoiceForm.controls['price'].invalid && (invoiceForm.controls['price'].dirty || invoiceForm.controls['price'].touched)">
+        <div *ngIf="invoiceForm.controls['price'].errors?.['required']">Ár kötelező!</div>
+      </div>
+    </div>
+
+    <div>
+      <button type="button" (click)="navigateBack()">Vissza</button>
+      <button type="submit" [disabled]="invoiceForm.invalid">Mentés</button>
+    </div>
+  </form>
+</div>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belépési oldal</title>
+</head>
+<body>
+
+<div>
+  <h2>Belépési oldal</h2>
+
+  <!-- Login Form -->
+  <form (ngSubmit)="login()" [formGroup]="loginForm">
+    <!-- Felhasználónév -->
+    <div>
+      <label for="username">Felhasználónév:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        formControlName="username"
+      >
+      <div *ngIf="username?.invalid && (username?.dirty || username?.touched)">
+        <div *ngIf="username?.errors?.['required']">A felhasználónév mező kitöltése kötelező!</div>
+        <div *ngIf="username?.errors?.['minlength'] || username?.errors?.['maxlength']">
+          Felhasználónévnek 3 és 40 karakter között kell lennie!
+        </div>
+      </div>
+    </div>
+
+    <!-- Jelszó -->
+    <div>
+      <label for="password">Jelszó:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+      >
+      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+        <div *ngIf="password?.errors?.['required']">A jelszó mező kitöltése kötelező!</div>
+        <div *ngIf="password?.errors?.['minlength'] || password?.errors?.['maxlength']">
+          Jelszónak 8 és 40 karakter között kell lennie!
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="wrong > 0">
+      Rossz jelszó vagy felhasználónév! Póbálkozás száma: {{wrong}}
+    </div>
+
+    <!-- Belépés gomb -->
+    <div>
+      <button type="submit" [disabled]="loginForm.invalid || (wrong > 3 && token == undefined)">Belépés</button>
+    </div>
+
+    <!-- Regisztráció gomb -->
+    <div>
+      <button type="button" (click)="redirectToRegistration()">Regisztráció</button>
+    </div>
+  </form>
+  <!-- CAPTCHA -->
+  <div *ngIf="wrong > 3">
+    <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+    <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+      <div *ngIf="recaptcha.errors?.['required']">This field is required.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+

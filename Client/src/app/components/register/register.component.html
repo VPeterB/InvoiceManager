@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regisztrációs oldal</title>
+</head>
+<body>
+
+<div>
+  <h2>Regisztrációs oldal</h2>
+
+  <!-- Registration Form -->
+  <form (ngSubmit)="register()" [formGroup]="registrationForm">
+    <!-- Name -->
+    <div>
+      <label for="name">Név:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        formControlName="name"
+      >
+      <div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+        <div *ngIf="name?.errors?.['required']">A név mező kitöltése kötelező!</div>
+        <div *ngIf="name?.errors?.['minlength'] || name?.errors?.['maxlength']">
+          A névnek 3 és 40 karakter között kell lennie!
+        </div>
+      </div>
+    </div>
+
+    <!-- Felhasználónév -->
+    <div>
+      <label for="username">Felhasználónév:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        formControlName="username"
+      >
+      <div *ngIf="(username?.invalid || !usernameIsFree) && (username?.dirty || username?.touched)">
+        <div *ngIf="username?.errors?.['required']">A felhasználónév mező kitöltése kötelező!</div>
+        <div *ngIf="username?.errors?.['minlength'] || username?.errors?.['maxlength']">
+          A felhasználónévnek 3 és 40 karakter között kell lennie!
+        </div>
+        <div *ngIf="!(username?.invalid) && !usernameIsFree">
+          Ez a felhasználónév már létezik!
+        </div>
+      </div>
+    </div>
+
+    <!-- Jelszó -->
+    <div>
+      <label for="password">Jelszó:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+      >
+      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+        <div *ngIf="password?.errors?.['required']">A jelszó mező kitöltése kötelező!</div>
+        <div *ngIf="password?.errors?.['minlength'] || password?.errors?.['maxlength']">
+          A jelszónak 8 és 40 karakter között kell lennie!
+        </div>
+      </div>
+    </div>
+
+    <!-- Szerepkör -->
+    <div>
+      <label for="role">Szerepkör:</label>
+      <select
+        id="role"
+        name="role"
+        formControlName="role"
+      >
+        <option value="USER">Felhasználó</option>
+        <option value="ACCOUNTANT">Könyvelő</option>
+      </select>
+      <div *ngIf="role?.invalid && (role?.dirty || role?.touched)">
+        <div *ngIf="role?.errors?.['required']">A szerepkör választás kötelező!</div>
+      </div>
+    </div>
+
+    <!-- Regisztráció gomb -->
+    <div>
+      <button type="submit" [disabled]="registrationForm.invalid || !usernameIsFree">Regisztráció</button>
+    </div>
+
+    <!-- Vissza gomb -->
+    <div>
+      <button type="button" (click)="goBack()">Vissza</button>
+    </div>
+  </form>
+
+</div>
+
+</body>
+</html>

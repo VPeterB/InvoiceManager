@@ -1,0 +1,26 @@
+<h2>Adminisztrációs oldal</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Felhasználónév</th>
+    <th>Szerepkör</th>
+    <th>Műveletek</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{ user.username }}</td>
+    <td>
+      <select multiple [(ngModel)]="user.roles">
+        <option value="USER">USER</option>
+        <option value="ADMIN">ADMIN</option>
+        <option value="ACCOUNTANT">ACCOUNTANT</option>
+      </select>
+    </td>
+    <td>
+      <button (click)="saveUserRoles(user)">Mentés</button>
+      <button (click)="deleteUser(user)">Törlés</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

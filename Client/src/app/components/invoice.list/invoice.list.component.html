@@ -1,0 +1,45 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Számlák Listája</title>
+</head>
+<body>
+
+<h1>Számlák Listája</h1>
+
+<!-- Table to display invoices -->
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Vevő Neve</th>
+    <th>Kiadás Dátuma</th>
+    <th>Esedékesség Dátuma</th>
+    <th>Tétel Neve</th>
+    <th>Megjegyzés</th>
+    <th>Ár</th>
+    <th>Műveletek</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Loop through invoices and display data -->
+  <tr *ngFor="let invoice of invoices">
+    <td>{{ invoice.id }}</td>
+    <td>{{ invoice.customerName }}</td>
+    <td>{{ invoice.issueDate }}</td>
+    <td>{{ invoice.dueDate }}</td>
+    <td>{{ invoice.itemName }}</td>
+    <td>{{ invoice.comment }}</td>
+    <td>{{ invoice.price }}</td>
+    <td>
+      <button (click)="viewInvoice(invoice.id)">Megtekintés</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Create button to navigate to the invoice creation page -->
+<button *ngIf="notUser" (click)="createInvoice()">Számla létrehozása</button>
+
+</body>
+
